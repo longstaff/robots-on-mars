@@ -1,0 +1,16 @@
+{
+  "name": "robots",
+  "version": "1.0.0",
+  "description": "Plotting robots on a grid",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "author": "Andrew Longstaff",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^4.8.0",
+    "eslint-config-airbnb-base": "^12.0.2",
+    "eslint-plugin-import": "^2.7.0"
+  }
+}
