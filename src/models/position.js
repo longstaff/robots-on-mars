@@ -28,13 +28,18 @@ Position.prototype.setY = function (newY) {
   if (!this.getLost()) this._y = newY;
 };
 
+Position.prototype.setPosition = function (coord) {
+  this.setX(coord.x);
+  this.setY(coord.y);
+};
+
 Position.prototype.getLost = function () {
   return this._lost;
 };
-Position.prototype.lostAt = function (x, y) {
+Position.prototype.lostAt = function (coord) {
   this._lost = true;
-  if (x !== undefined) this._x = x;
-  if (y !== undefined) this._y = y;
+  this._x = coord.x;
+  this._y = coord.y;
   return this;
 };
 

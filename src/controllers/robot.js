@@ -30,9 +30,10 @@ Robot.prototype.runInstruction = function (position, box, instruction) {
       throw new Error(`Unknown instruction ${instruction}`);
   }
   const newCoord = position.getCoord();
-  const lostPoint = box.getCrossPoint(prevCoord, newCoord);
-  if (lostPoint !== Constants.LOST_NONE) {
-    position.lostAt(lostPoint);
+  const boundaryPoint = box.getCrossPoint(prevCoord, newCoord);
+  if (boundaryPoint !== Constants.LOST_NONE) {
+    if (boundaryPoint.isLost) position.lostAt(boundaryPoint);
+    else position.setPosition(boundaryPoint);
   }
 };
 
