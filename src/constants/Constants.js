@@ -9,6 +9,9 @@ const Constants = {
   MOVE_FORWARD: 'F',
 
   LOST_NONE: 'com.longstaff.lost_none',
+
+  DATA_CONSOLE: 'com.longstaff.data_console',
+  DATA_FILE: 'com.longstaff.data_file',
 };
 
 module.exports = Constants;

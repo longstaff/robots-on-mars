@@ -15,8 +15,8 @@ Scenario.prototype.runRobot = function (x, y, orientation, instructions) {
   newRobot.runInstructions(instructions);
 };
 
-Scenario.prototype.getResults = function () {
-  return this._robots.map(robot => robot.getResult());
+Scenario.prototype.getRobots = function () {
+  return this._robots;
 };
 
 module.exports = Scenario;

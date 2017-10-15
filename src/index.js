@@ -1,32 +1,38 @@
+const Constants = require('./constants/Constants');
 const Scenario = require('./controllers/scenario');
+const Factory = require('./utils/data_factory');
 
-// TODO: Read in lines from file
-const mapCoords = '5 3';
-const robot1Init = '1 1 E';
-const robot1Instruction = 'RFRFRFRF';
-const robot2Init = '3 2 N';
-const robot2Instruction = 'FRRFLLFFRRFLL';
-const robot3Init = '0 3 W';
-const robot3Instruction = 'LLFFFLFLFL';
+const inputFileName = 'input.txt';
+const outputFileName = 'output.txt';
+const inputType = Constants.DATA_FILE;
+const outputType = Constants.DATA_FILE;
 
 const scenario = new Scenario();
-const robots = [
-  { init: robot1Init, instruction: robot1Instruction },
-  { init: robot2Init, instruction: robot2Instruction },
-  { init: robot3Init, instruction: robot3Instruction },
-];
+const reader = Factory.getDataSource(inputType);
 
-const letBoxCoords = mapCoords.split(' ').map(val => parseInt(val, 10));
-scenario.initBox(letBoxCoords[0], letBoxCoords[1]);
+reader.readFile(inputFileName).then(() => {
+  const mapCoords = reader.getMapData();
+  const robots = reader.getRobotData();
 
-robots.forEach((val) => {
-  const init = val.init.split(' ');
-  const x = parseInt(init[0], 10);
-  const y = parseInt(init[1], 10);
-  const orientation = init[2];
-  const instructions = val.instruction.split('');
-  scenario.runRobot(x, y, orientation, instructions);
+  if (mapCoords && robots && robots.length) {
+    scenario.initBox(mapCoords.x, mapCoords.y);
+
+    robots.forEach((val) => {
+      scenario.runRobot(val.x, val.y, val.orientation, val.instructions);
+    });
+  } else {
+    console.log('Error, no data to be read');
+  }
+}, (err) => {
+  console.log(`Error reading data ${err}`);
+}).then(() => {
+  const outputRobots = scenario.getRobots();
+  if (outputRobots && outputRobots.length) {
+    const writer = Factory.makeDataOutput(outputType, outputFileName);
+    writer.writeData(outputRobots).then(() => {
+      console.log(`Data output to ${outputFileName}`);
+    }, (err) => {
+      console.log(`Error writing data ${err}`);
+    });
+  }
 });
-
-// TODO: Log out in some helpful format
-console.log(scenario.getResults());
