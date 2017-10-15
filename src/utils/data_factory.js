@@ -3,6 +3,10 @@ const FileReader = require('./file_reader');
 const FileWriter = require('./file_writer');
 
 const factory = {
+  /**
+   * @param  {Enum} Data source type as constant
+   * @return {utils/data_source} data source object
+   */
   getDataSource: (type) => {
     let dataSource;
     switch (type) {
@@ -14,6 +18,10 @@ const factory = {
     }
     return dataSource;
   },
+  /**
+   * @param  {Enum} Data sink type as constant
+   * @return {utils/data_sink} data sink object
+   */
   makeDataOutput: (type, data) => {
     let dataSource;
     switch (type) {

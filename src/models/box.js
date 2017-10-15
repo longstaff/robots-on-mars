@@ -1,5 +1,12 @@
 const Constants = require('../constants/Constants');
 
+/**
+ * Box class to represent bounding box of the robots and record previous lost points
+ * @param {int} max y of scenario
+ * @param {int} max x of scenario
+ * @param {int} min y of scenario
+ * @param {int} min x of scenario
+ */
 function Box(top, right, bottom, left) {
   this._left = left || 0;
   this._right = right || 0;
@@ -9,6 +16,12 @@ function Box(top, right, bottom, left) {
   this._crossPoints = [];
 }
 
+/**
+ * Test to see if movement has moved over the boundary of the map
+ * @param  {Object} Coodinate object with x and y of start point
+ * @param  {Object} Coodinate object with x and y of end point
+ * @return {Object} Coordinate of crossing boundary or LOST_NONE constant if not crossed
+ */
 Box.prototype.getCrossPoint = function (start, end) {
   let cross = null;
 
@@ -25,6 +38,12 @@ Box.prototype.getCrossPoint = function (start, end) {
   return cross !== null ? cross : Constants.LOST_NONE;
 };
 
+/**
+ * Add a crossing point to the list, if previously crossed do not trigger lost
+ * @param {int} x position of crossing
+ * @param {int} y position of crossing
+ * @return {Object} Coordinate of crossing boundary with isLost flag
+ */
 Box.prototype.addCrossPoint = function (x, y) {
   const crossPoint = { x, y, isLost: false };
   if (!this.isCrossingPoint(crossPoint)) {
@@ -33,6 +52,11 @@ Box.prototype.addCrossPoint = function (x, y) {
   }
   return crossPoint;
 };
+/**
+ * Check if this location previously crossed
+ * @param  {Object} coord object to check
+ * @return {Boolean}
+ */
 Box.prototype.isCrossingPoint = function (coord) {
   return !!this._crossPoints.find(point => point.x === coord.x && point.y === coord.y);
 };

@@ -2,6 +2,10 @@ const DataSink = require('./data_sink');
 const util = require('util');
 const fs = require('fs');
 
+/**
+ * Class for writing output text file
+ * @param {string}
+ */
 function FileWriter(fileName) {
   this.init();
   this._fileName = fileName || 'output.txt';
@@ -9,7 +13,12 @@ function FileWriter(fileName) {
 
 util.inherits(FileWriter, DataSink);
 
-FileWriter.prototype.writeData = function (robots) {
+/**
+ * @param  {models/robot[]} array of robots for output
+ * @param  {string} override filename if needed
+ * @return {Promise} promise for async operation
+ */
+FileWriter.prototype.writeData = function (robots, fileName) {
   let promisePass;
   let promiseRej;
   const promise = new Promise((pass, rej) => {
@@ -17,7 +26,7 @@ FileWriter.prototype.writeData = function (robots) {
     promiseRej = rej;
   });
 
-  fs.writeFile(this._fileName, robots.map(robot => robot.getResult()).join('\n'), 'utf8', (err) => {
+  fs.writeFile(fileName || this._fileName, robots.map(robot => robot.getResult()).join('\n'), 'utf8', (err) => {
     if (err) {
       promiseRej(`File write error ${err}`);
     } else {

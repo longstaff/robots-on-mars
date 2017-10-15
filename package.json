@@ -4,7 +4,8 @@
   "description": "Plotting robots on a grid",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "start": "node ./src/index.js"
   },
   "author": "Andrew Longstaff",
   "license": "ISC",
