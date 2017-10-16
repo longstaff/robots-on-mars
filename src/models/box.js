@@ -15,6 +15,18 @@ function Box(top, right, bottom, left) {
 
   this._crossPoints = [];
 }
+/**
+ * @return {int} width of bounding box
+ */
+Box.prototype.getWidth = function () {
+  return this._right - this._left;
+};
+/**
+ * @return {int} height of bounding box
+ */
+Box.prototype.getHeight = function () {
+  return this._top - this._bottom;
+};
 
 /**
  * Test to see if movement has moved over the boundary of the map

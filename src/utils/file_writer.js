@@ -18,7 +18,7 @@ util.inherits(FileWriter, DataSink);
  * @param  {string} override filename if needed
  * @return {Promise} promise for async operation
  */
-FileWriter.prototype.writeData = function (robots, fileName) {
+FileWriter.prototype.writeData = function (robots, box, fileName) {
   let promisePass;
   let promiseRej;
   const promise = new Promise((pass, rej) => {

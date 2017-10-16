@@ -13,6 +13,7 @@ function Robot(id, box, x, y, orientation) {
   this._id = id;
   this._box = box;
   this._position = new Position(x, y, orientation);
+  this._history = [];
 }
 
 /**
@@ -21,6 +22,27 @@ function Robot(id, box, x, y, orientation) {
  */
 Robot.prototype.getResult = function () {
   return this._position.printStatus();
+};
+/**
+ * Format data into string for output
+ * @return {string} position at the end of the instruction
+ */
+Robot.prototype.getHistory = function () {
+  return this._history;
+};
+/**
+ * Format data into string for output
+ * @return {string} position at the end of the instruction
+ */
+Robot.prototype.addHistory = function (coord, lost, orientation) {
+  this._history.push({
+    isLost: lost,
+    x: coord.x,
+    y: coord.y,
+    orientation: orientation,
+  });
+
+  console.log("Add to history", this._history)
 };
 
 /**
@@ -55,6 +77,8 @@ Robot.prototype.runInstruction = function (position, box, instruction) {
     if (boundaryPoint.isLost) position.lostAt(boundaryPoint);
     else position.setPosition(boundaryPoint);
   }
+
+  this.addHistory(position.getCoord(), position.getLost(), position.getOrientation());
 };
 
 module.exports = Robot;

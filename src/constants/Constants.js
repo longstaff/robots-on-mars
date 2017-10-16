@@ -15,6 +15,7 @@ const Constants = {
   // Input / Output constants
   DATA_CONSOLE: 'com.longstaff.data_console',
   DATA_FILE: 'com.longstaff.data_file',
+  DATA_HTML: 'com.longstaff.data_html',
 };
 
 module.exports = Constants;

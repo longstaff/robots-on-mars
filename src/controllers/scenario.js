@@ -16,6 +16,12 @@ function Scenario() {
 Scenario.prototype.initBox = function (width, height) {
   this._box = new Box(height, width);
 };
+/**
+ * @return {model/box} Map box if scenario
+ */
+Scenario.prototype.getBox = function () {
+  return this._box;
+};
 
 /**
  * Pass init and instructions to launch a new robot

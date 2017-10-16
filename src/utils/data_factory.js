@@ -1,6 +1,7 @@
 const Constants = require('../constants/Constants');
 const FileReader = require('./file_reader');
 const FileWriter = require('./file_writer');
+const HtmlWriter = require('./html_writer');
 
 const factory = {
   /**
@@ -25,6 +26,9 @@ const factory = {
   makeDataOutput: (type, data) => {
     let dataSource;
     switch (type) {
+      case Constants.DATA_HTML:
+        dataSource = new HtmlWriter(data);
+        break;
       case Constants.DATA_FILE:
         dataSource = new FileWriter(data);
         break;
